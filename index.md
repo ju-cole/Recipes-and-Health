@@ -61,3 +61,9 @@ The columns most relevant to the central question are:
 ### Univariate Analysis
 In this section, We look at the distribution of protein, carbohydrates, and sugar among all the recipes to see how relevant they are in the dataframe and can figure out where the cutoff should be when taking to account outliers.
 
+<iframe
+src= "assests/protein_distribution.html"
+width="800"
+height="600"
+frameborder="0"
+></iframe>
