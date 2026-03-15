@@ -68,7 +68,7 @@ height="600"
 frameborder="0"
 ></iframe>
 <iframe
-src= "assests/carbohydrates_distribution.html"
+src= "assests/carbs_distribution.html"
 width="800"
 height="600"
 frameborder="0"
@@ -304,7 +304,7 @@ investigation and potential model improvements targeting high calorie recipes
 may be warranted.
 
 <iframe
-src= "assests/Fariness_Accurarcy.html"
+src= "assests/Fairness_Accurarcy.html"
 width="800"
 height="600"
 frameborder="0"
