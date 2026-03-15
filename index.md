@@ -67,3 +67,245 @@ width="800"
 height="600"
 frameborder="0"
 ></iframe>
+<iframe
+src= "assests/carbohydrates_distribution.html"
+width="800"
+height="600"
+frameborder="0"
+></iframe>
+<iframe
+src= "assests/sugar_distribution.html"
+width="800"
+height="600"
+frameborder="0"
+></iframe>
+
+**Protein:** The distribution of protein (PDV) is heavily right-skewed, meaning 
+the majority of recipes on Food.com have relatively low protein content. This makes 
+sense as most everyday recipes are not specifically designed to be high in protein.
+
+**Carbohydrates:** The distribution of carbohydrates (PDV) is also right-skewed, 
+with most recipes having low to moderate carbohydrate content. The long tail suggests 
+a smaller number of recipes — likely baked goods or pasta dishes — have very high 
+carbohydrate levels.
+
+**Sugar:** Similar to protein and carbohydrates, the distribution of sugar (PDV) 
+is right-skewed. Most recipes contain low amounts of sugar, while a smaller number 
+of recipes — likely desserts and sweet dishes — have very high sugar content.
+
+### Bivariate Analysis
+
+For this analysis, I examined the distribution of the rating of the recipe conditioned between the healthy and non-healthy recipes (based on sugar, carbohydrate, and protein levels). The graph below shows that recipes rated as 5/5 and 3/5 were more unhealthy than healthy ones, but 4/5 were actually primarily healthy recipes. We are going to dive into the deeper relationship between the proportions later on.
+
+<iframe
+src= "assests/Distribution_of_rating_based_on_healthiness.html"
+width="800"
+height="600"
+frameborder="0"
+></iframe>
+
+### Interesting Aggregates
+
+For this section, we investigated the relationship between the average protein, carbohydrates, sugar, and calories over the distribution of the ratings. To do this, we created a smaller dataframe 'nutrition_by_rating', which gave the each rating 1-5 as well as the mean and median of each nutrition detail. We identified the outliers using the IQR method and after grouping the rating and means and medians of the nutritonal details, we created a data visualization to understand it better.
+
+In this grouped bar chart the mean nutritional content (protein, carbohydrates, sugar, and calories) for recipes at each rating level. The chart shows that there isn't that big of ranges of average protein, carbohydrates, sugar, and caloreis. 
+
+<iframe
+src= "assests/Mean_nutritional_content_by_recipe_rating.html"
+width="800"
+height="600"
+frameborder="0"
+></iframe>
+
+## Assessment of Missingness
+Three columns, `description`,`average_rating`, and `rating_rounded` all had a significant amount of missing values in the merged dataset, so we decided to asses them. It is also important to address that `name` also had 1 missing value but we expected it to a minor error in previous code so it was ignored and just changed to its proper name.
+
+### NMAR Analysis
+
+Looking at the columns with missing values, we expected `description` and `average_rating` to both be NMAR (Not Missing At Random). The missingness of 70 `description` values is most likely related ot the value itself. Contributors who didn't write a description probably felt their recipe was self-explanatory or simply chose not to. This means more basic recipes are more likely to have missing descriptions, and the missingess is related to teh nature of the recipe itself, which we cannot directly observe in the dataset. To make this MAR, we would want additional data such as the contributor's activity level on Food.com (total number of recipes submitted). More active reviewers are more likely to right descriptions which would explain the missingness through an observable column rather than the value itself.
+
+### Missingness Dependency
+The missingness of 2609 `average_rating`is going to be investigated in this section, as we are going to look whether the missingness in the column depends on the propotion of protien or `protein`, which is the amount of protein in the recipe, or `n_steps`, the number of steps of the recipe.
+
+**Null Hypothesis:** The missingness of average_rating does not depend on the amount of protein in the recipe.
+
+**Alternate Hypothesis:** The missingess of average_rating does depend on the proportion of protein in the recipe.
+
+**Test Statistic:** The absolute difference of mean in the proportion of protein of the distribution of the group without missing ratings and the distribution of the group with missing ratings.
+
+**Signficance Level:** 0.05
+
+<iframe
+src= "assests/Distribution_of_protein_by_missingness.html"
+width="800"
+height="600"
+frameborder="0"
+></iframe>
+Next we ran a permutation test by shuffling the missingness of rating 1000 times to simulate the mean differences in the two distributions as described in the test statistic.
+<iframe
+src= "assests/Empirical_distribution_protein_vs_rating_missingness.html"
+width="800"
+height="600"
+frameborder="0"
+></iframe>
+
+The **observed statistic** of **1.2974** is seen in the red line of the histogram and the **p_value** comes out to **0.1680** which is greater than our 0.05 signficance level so we fail to reject the null hypothesis meaning we the amount of protein doesn't not necessarly depend if a review is a missing or not.
+
+## Hypothesis Testing
+**Question:** Do healthier recipes (high protein, low carbohydrates, low sugar) 
+tend to receive different average ratings than less healthy recipes?
+
+We define a recipe as "healthy" if it meets all three conditions:
+- Protein content is at or above the median protein level
+- Carbohydrate content is at or below the median carbohydrate level
+- Sugar content is at or below the median sugar level
+
+**Null Hypothesis:** Healthy and less healthy recipes are rated on the same scale. 
+Any observed difference in average ratings between the two groups is due to random 
+chance.
+
+**Alternative Hypothesis:** Healthy recipes receive different average ratings than 
+less healthy recipes.
+
+**Test Statistic:** The difference in mean average rating between healthy recipes 
+and less healthy recipes (healthy minus less healthy). We chose this over the 
+absolute difference because it tells us the direction of any effect — whether 
+healthy recipes are rated higher or lower.
+
+**Significance Level:** 0.05
+
+<iframe
+src= "assests/Empirical_distribution_under_null.html"
+width="800"
+height="600"
+frameborder="0"
+></iframe>
+
+**Results:** We observed a difference of 0.0013 in mean average rating between 
+healthy and less healthy recipes (healthy mean: 4.6264, less healthy mean: 4.6252). 
+After running 1000 permutations, we obtained a p-value of 0.8430.
+
+**Conclusion:** Since our p-value of 0.8430 is much greater than our significance 
+level of 0.05, we fail to reject the null hypothesis. This suggests that healthy 
+recipes (high protein, low carbohydrates, low sugar) do not appear to be rated 
+differently than less healthy recipes on Food.com. The observed difference of 
+0.0013 stars is extremely small and is consistent with what we would expect to 
+see under random chance alone. Note that this does not prove that healthiness has 
+absolutely no effect on ratings — it only suggests that based on our data, any 
+observed difference could plausibly be due to random chance.
+
+## Framing a Prediction Problem
+We are predicting `n_steps`, the number of steps in a recipe. This will involve **regression** since `n_steps` is a continuous numerical variable. Originally we intended to predict `average_rating` since our project centers around the relationship between healthy recipes and ratings. However, the hypothesis test conlcuded that healthy or not, the ratings are nearly identical - with means of 4.6264 and 4.6252 respectively and p-val of 0.8430. This means predicting average_variable with tehse would be very complex and uninteresting. Instead, we decided to go a different route and want to predict `n_steps` as our response variable since it is a natural measure of recipe complexity and has more meaningful relationship with other features in the dataset of recipes.
+
+We will evaluate our model using **RMSE (Root Mean Squared Error)** because `n_steps` is a continuous variable and will be the same units as `n steps` meaning an RMSE of 3 means our predictions are off by 3 steps on average. We chose RMSE over MAE because it will take outliers into account better. We would want to know if a 3 step recipe was predicted to be 15 steps off rather than off by 1 or 2. 
+
+The features used in this model are known at the time of prediciton - `n_ingredients`, `minutes`, and `calories`. All these features are submitted when the recipe is submitted, long before any user rates or reviews it. `average_rating` is not used as a feature because ratings are only available after users have interacted with the recipe.
+
+## Baeline Model
+
+### Performance
+| | RMSE |
+| --- | --- |
+| Training | 5.6618 |
+| Test | 5.6682 |
+
+Our baseline model achieves a Train and Test RMSE of approximately 5.6, meaning 
+our predictions are off by about 5.7 steps on average. Given that the average 
+recipe has around 9-10 steps, this is a relatively large error and suggests our 
+baseline model is not yet a good predictor of recipe complexity. However, the 
+similar Train and Test RMSE values indicate the model is not overfitting and 
+generalizes well to unseen data. We expect to significantly improve this in our 
+final model by switching to a Random Forest Regressor and adding more features.
+
+## Final Model
+
+Our final model uses a **Random Forest Regressor** with the following features:
+
+**Kept from Baseline:**
+- `n_ingredients` — **quantitative**. The number of ingredients in a recipe is the strongest predictor of complexity. For example if a recipe requires 20 ingredients is almost always requires more steps than a recipe with only 5 ingredients. Scaled with StandardScaler
+- `minutes` — **quantitative**. Cooking time, scaled with StandardScaler. Cooking time is directly related to complexity as the longer it takes for a recipe to be made the more steps it would have then a quick recipe with shorter steps.
+
+**Added in Final Model:**
+- `calories` — **quantitative**. Higher calorie recipes tend to be more complex because of cooking techniques such as frying, layering, or combining multiple components, all of which would increase the number of steps and is scaled with StandardScaler.
+- `sugar` — **quantitative**. With higher sugar recipes such as baked goods and desserts typically require precise mult-step processes like creaming butter, folding batter, or tempering choclate which would increase n_steps. Nutritional complexity indicator, scaled with StandardScaler.
+- `is_healthy` — **nominal**. Healthy recipes may follow a distinct pattern of preparation compared to less healthy ones for examplehealthy recipes might need more minimally processed ingredients requiring less steps than less-healthy foods. Encoded with OneHotEncoder.
+
+We used a `ColumnTransformer` inside a single `sklearn` `Pipeline` to apply 
+`StandardScaler` to all numerical features and `OneHotEncoder` to `is_healthy`.
+
+### Hyperparameter Tuning
+We used `GridSearchCV` with 5-fold cross validation to tune two hyperparameters:
+- `max_depth` — controls how deep each tree grows, preventing overfitting
+- `n_estimators` — number of trees in the forest
+
+The best parameters found were `max_depth=10` and `n_estimators=200`.
+
+### Performance
+| | RMSE |
+| --- | --- |
+| Baseline Train | 5.6 |
+| Baseline Test | 5.6 |
+| Final Train | 4.97 |
+| Final Test | 5.31 |
+
+Our final model improved on the baseline by reducing Test RMSE from 5.6 to 5.31, 
+a reduction of about 0.3 steps. While the improvement is modest, it shows that 
+adding nutritional features and using a more powerful non-linear model does help. 
+The gap between Train RMSE (4.91) and Test RMSE (5.31) is small and expected, 
+indicating the model is not significantly overfitting and generalizes reasonably 
+well to unseen data.
+
+The modest overall improvement suggests that `n_steps` is inherently difficult 
+to predict from nutritional and time features alone — recipe complexity is likely 
+influenced by factors not captured in our dataset, such as cooking technique, 
+cuisine type, or the skill level required.
+
+## Fariness Analysis
+
+We investigated whether our final model performs fairly across two groups of recipes:
+- **Group X:** Low calorie recipes (calories at or below the median of 305.20)
+- **Group Y:** High calorie recipes (calories above the median of 305.20)
+
+We chose these groups because calorie content is a fundamental property of recipes 
+that separates simple, light dishes from more complex, rich ones. If our model 
+performs significantly worse for one group, it would suggest a systematic bias in 
+how well it predicts recipe complexity across different types of dishes.
+
+**Evaluation Metric:** RMSE — since this is a regression model we use RMSE to 
+measure prediction error for each group separately.
+
+**Null Hypothesis:** Our model is fair. Its RMSE for low calorie and high calorie 
+recipes are roughly the same, and any observed difference is due to random chance.
+
+**Alternative Hypothesis:** Our model is unfair. Its RMSE for high calorie recipes 
+is different from its RMSE for low calorie recipes.
+
+**Test Statistic:** Difference in RMSE between high calorie and low calorie recipes 
+(high calorie RMSE minus low calorie RMSE).
+
+**Significance Level:** 0.05
+
+**Results:**
+- High Calorie RMSE: 5.7387
+- Low Calorie RMSE: 4.8641
+- Observed Difference: 0.8745
+- P-value: 0.0000
+
+**Conclusion:** Since our p-value of 0.0000 is less than our significance level of 
+0.05, we reject the null hypothesis. This suggests our model is unfair — it performs 
+significantly worse on high calorie recipes (RMSE: 5.74) than on low calorie recipes 
+(RMSE: 4.86). A difference of 0.87 steps in RMSE is meaningful given that the average 
+recipe has about 10 steps. This disparity likely occurs because high calorie recipes 
+tend to be more complex and varied in structure — rich dishes like casseroles, baked 
+goods, and multi-component meals are harder to predict in terms of number of steps 
+than simpler low calorie dishes. Note that while we reject the null hypothesis, this 
+does not prove our model is definitively unfair — it suggests that further 
+investigation and potential model improvements targeting high calorie recipes 
+may be warranted.
+
+<iframe
+src= "assests/Fariness_Accurarcy.html"
+width="800"
+height="600"
+frameborder="0"
+></iframe>
