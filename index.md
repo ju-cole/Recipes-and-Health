@@ -43,20 +43,34 @@ Now we are going to have to clean these two datasets into one concise dataframe 
 
 ### Merging the Datasets
 
-To create a single working dataset, a **left merge** was performed of the recipes dataset with the interactions dataset on `id` and `recipe_id`. By using left merge it ensures every recipe is kept in the dataset, even if it has never recieved a review or rating.
+To create a single working dataset, a **left merge** was performed of the recipes 
+dataset with the interactions dataset on `id` and `recipe_id`. A left merge ensures 
+every recipe is kept in the dataset, even if it has never received a review or rating.
 
-After mergeing, all ratings with 0 was replaced with `NaN` because Food.com uses a 1-5 scale for ratings and 0 means that the user left a review without submitting a rating. Then another column was added called `average_rating` which consists of the average rating per recipe.
+After merging, all ratings of 0 were replaced with `NaN` because Food.com uses a 
+1–5 scale and a rating of 0 simply means the user left a review without submitting 
+a rating — including it would unfairly lower average scores. A new column called 
+`average_rating` was then added, containing the average rating per recipe across 
+all user interactions.
 
-The columns most relevant to the central question are:
+After merging, we also dropped columns that are not relevant to any part of our 
+analysis — `contributor_id`, `submitted`, `steps`, `description`, and `tags` — 
+to keep the dataset clean and focused. The remaining columns most relevant to our 
+central question are:
 
 | Column | Description |
 | --- | --- |
-| `nutrition` | This is the most critical column for our analysis so I can extract **protein (PDV)**, **carbohydrates (PDV)**, **sugar (PDV)** from it to measure how "healthy" a recipe is. With High protein and low carboydrates being the central defenition of a healthy recipe. |
-| `average_rating` | This is the outcome variable — to see if healthier recipes score higher or lower on average. |
+| `nutrition` | The most critical column for our analysis — we extract **protein (PDV)**, **carbohydrates (PDV)**, and **sugar (PDV)** from it to measure how healthy a recipe is. High protein, low carbohydrates, and low sugar form our definition of a healthy recipe. |
+| `average_rating` | Our outcome variable — used to see if healthier recipes score higher or lower on average. |
 | `name` | Helps identify and verify specific recipes when exploring patterns in the data. |
-| `tags` | groups recipes into categories (e.g. "low-carb", "high-protein", "low-sugar", "vegetarian") to see if certain types of healthy recipes are rated differently. |
-| `minutes` | Cooking time may be correlated with healthiness — for example, quick meals may tend to be less nutritious. Including it helps us explore confounding factors. |
-| `n_steps` | Similarly, the complexity of a recipe may relate to both its healthiness and its rating — more complex recipes might be healthier but rated lower due to difficulty. |
+| `minutes` | Cooking time may be correlated with recipe complexity and healthiness. Also used as a feature in our prediction model. |
+| `n_steps` | The number of steps in a recipe — used both as a way to explore recipe complexity and as the response variable in our prediction model. |
+| `n_ingredients` | The number of ingredients in a recipe — used as a feature in our prediction model since more ingredients generally implies more steps. |
+| `calories` | Extracted from `nutrition` — used in our prediction model and fairness analysis. |
+| `protein` | Extracted from `nutrition` — one of the three nutrients used to define a healthy recipe. |
+| `sugar` | Extracted from `nutrition` — one of the three nutrients used to define a healthy recipe. |
+| `carbohydrates` | Extracted from `nutrition` — one of the three nutrients used to define a healthy recipe. |
+| `is_healthy` | *Added later to express based off protein, sugar, and carbohydrates if recipe is healthy or not.* |
 
 ### Univariate Analysis
 In this section, We look at the distribution of protein, carbohydrates, and sugar among all the recipes to see how relevant they are in the dataframe and can figure out where the cutoff should be when taking to account outliers.
