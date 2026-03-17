@@ -208,6 +208,85 @@ frameborder="0"
 
 For this section, we investigated the relationship between the average protein, carbohydrates, sugar, and calories over the distribution of the ratings. To do this, we created a smaller dataframe 'nutrition_by_rating', which gave the each rating 1-5 as well as the mean and median of each nutrition detail. We identified the outliers using the IQR method and after grouping the rating and means and medians of the nutritonal details, we created a data visualization to understand it better.
 
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2">Rating</th>
+      <th colspan="2">Protein</th>
+      <th colspan="2">Carbohydrates</th>
+      <th colspan="2">Sugar</th>
+      <th colspan="2">Calories</th>
+    </tr>
+    <tr>
+      <th>Mean</th>
+      <th>Median</th>
+      <th>Mean</th>
+      <th>Median</th>
+      <th>Mean</th>
+      <th>Median</th>
+      <th>Mean</th>
+      <th>Median</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1.0</td>
+      <td>29.62</td>
+      <td>12.0</td>
+      <td>14.94</td>
+      <td>9.0</td>
+      <td>76.75</td>
+      <td>26.5</td>
+      <td>447.96</td>
+      <td>276.55</td>
+    </tr>
+    <tr>
+      <td>2.0</td>
+      <td>30.80</td>
+      <td>16.0</td>
+      <td>15.04</td>
+      <td>10.0</td>
+      <td>73.99</td>
+      <td>26.0</td>
+      <td>445.26</td>
+      <td>308.00</td>
+    </tr>
+    <tr>
+      <td>3.0</td>
+      <td>33.49</td>
+      <td>19.0</td>
+      <td>15.22</td>
+      <td>9.0</td>
+      <td>84.45</td>
+      <td>24.0</td>
+      <td>442.25</td>
+      <td>312.25</td>
+    </tr>
+    <tr>
+      <td>4.0</td>
+      <td>34.88</td>
+      <td>21.0</td>
+      <td>13.51</td>
+      <td>9.0</td>
+      <td>61.36</td>
+      <td>22.0</td>
+      <td>422.67</td>
+      <td>311.60</td>
+    </tr>
+    <tr>
+      <td>5.0</td>
+      <td>32.47</td>
+      <td>17.0</td>
+      <td>13.63</td>
+      <td>8.0</td>
+      <td>69.22</td>
+      <td>23.0</td>
+      <td>427.67</td>
+      <td>301.50</td>
+    </tr>
+  </tbody>
+</table>
+
 In this grouped bar chart the mean nutritional content (protein, carbohydrates, sugar, and calories) for recipes at each rating level. The chart shows that there isn't that big of ranges of average protein, carbohydrates, sugar, and caloreis. 
 
 <iframe
@@ -250,6 +329,38 @@ frameborder="0"
 ></iframe>
 
 The **observed statistic** of **1.2974** is seen in the red line of the histogram and the **p_value** comes out to **0.1680** which is greater than our 0.05 signficance level so we fail to reject the null hypothesis meaning we the amount of protein doesn't not necessarly depend if a review is a missing or not.
+
+**N Ingredients and Average Rating Missingness**
+
+**Null Hypothesis:** The missingness of `average_rating` does not depend on the 
+number of ingredients in the recipe — the two groups (missing and not missing) 
+come from the same distribution.
+
+**Alternate Hypothesis:** The missingness of `average_rating` does depend on the 
+number of ingredients in the recipe.
+
+**Test Statistic:** The absolute difference in mean `n_ingredients` between recipes 
+with missing `average_rating` and recipes without missing `average_rating`.
+
+**Significance Level:** 0.05
+
+**Observed Statistic:** 0.2542
+
+**P-value:** 0.0000
+
+**Conclusion:** Since our p-value of 0.0000 is less than our significance level 
+of 0.05, we reject the null hypothesis. The missingness of `average_rating` does 
+depend on the number of ingredients in a recipe. Recipes with fewer ingredients 
+are more likely to be unrated, which makes intuitive sense — simpler recipes with 
+fewer ingredients may be less interesting or noteworthy to users, making them less 
+likely to attract ratings and reviews.
+
+<iframe
+src= "assests/fig_missingness2.html"
+width="800"
+height="600"
+frameborder="0"
+></iframe>
 
 ## Hypothesis Testing
 **Question:** Do healthier recipes (high protein, low carbohydrates, low sugar) 
