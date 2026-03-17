@@ -72,13 +72,90 @@ central question are:
 | `carbohydrates` | Extracted from `nutrition` — one of the three nutrients used to define a healthy recipe. |
 | `is_healthy` | *Added later to express based off protein, sugar, and carbohydrates if recipe is healthy or not.* |
 Here is the head of **Recipes**
-| | name | minutes | nutrition | n_steps | n_ingredients | average_rating | calories | sugar | protein | carbohydrates |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0 | 1 brownies in the world best ever | 40 | [138.4, 10.0, 50.0, 3.0, 3.0, 19.0, 6.0] | 10 | 9 | 4.0 | 138.4 | 50.0 | 3.0 | 6.0 |
-| 1 | 1 in canada chocolate chip cookies | 45 | [595.1, 46.0, 211.0, 22.0, 13.0, 51.0, 26.0] | 12 | 11 | 5.0 | 595.1 | 211.0 | 13.0 | 26.0 |
-| 2 | 412 broccoli casserole | 40 | [194.8, 20.0, 6.0, 32.0, 22.0, 36.0, 3.0] | 6 | 9 | 5.0 | 194.8 | 6.0 | 22.0 | 3.0 |
-| 3 | millionaire pound cake | 120 | [878.3, 63.0, 326.0, 13.0, 20.0, 123.0, 39.0] | 7 | 7 | 5.0 | 878.3 | 326.0 | 20.0 | 39.0 |
-| 4 | 2000 meatloaf | 90 | [267.0, 30.0, 12.0, 12.0, 29.0, 48.0, 2.0] | 17 | 13 | 5.0 | 267.0 | 12.0 | 29.0 | 2.0 |
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>name</th>
+      <th>minutes</th>
+      <th>nutrition</th>
+      <th>n_steps</th>
+      <th>n_ingredients</th>
+      <th>average_rating</th>
+      <th>calories</th>
+      <th>sugar</th>
+      <th>protein</th>
+      <th>carbohydrates</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1 brownies in the world best ever</td>
+      <td>40</td>
+      <td>[138.4, 10.0, 50.0, 3.0, 3.0, 19.0, 6.0]</td>
+      <td>10</td>
+      <td>9</td>
+      <td>4.0</td>
+      <td>138.4</td>
+      <td>50.0</td>
+      <td>3.0</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1 in canada chocolate chip cookies</td>
+      <td>45</td>
+      <td>[595.1, 46.0, 211.0, 22.0, 13.0, 51.0, 26.0]</td>
+      <td>12</td>
+      <td>11</td>
+      <td>5.0</td>
+      <td>595.1</td>
+      <td>211.0</td>
+      <td>13.0</td>
+      <td>26.0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>412 broccoli casserole</td>
+      <td>40</td>
+      <td>[194.8, 20.0, 6.0, 32.0, 22.0, 36.0, 3.0]</td>
+      <td>6</td>
+      <td>9</td>
+      <td>5.0</td>
+      <td>194.8</td>
+      <td>6.0</td>
+      <td>22.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>millionaire pound cake</td>
+      <td>120</td>
+      <td>[878.3, 63.0, 326.0, 13.0, 20.0, 123.0, 39.0]</td>
+      <td>7</td>
+      <td>7</td>
+      <td>5.0</td>
+      <td>878.3</td>
+      <td>326.0</td>
+      <td>20.0</td>
+      <td>39.0</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>2000 meatloaf</td>
+      <td>90</td>
+      <td>[267.0, 30.0, 12.0, 12.0, 29.0, 48.0, 2.0]</td>
+      <td>17</td>
+      <td>13</td>
+      <td>5.0</td>
+      <td>267.0</td>
+      <td>12.0</td>
+      <td>29.0</td>
+      <td>2.0</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Univariate Analysis
 In this section, We look at the distribution of protein, carbohydrates, and sugar among all the recipes to see how relevant they are in the dataframe and can figure out where the cutoff should be when taking to account outliers.
