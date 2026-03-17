@@ -71,6 +71,7 @@ central question are:
 | `sugar` | Extracted from `nutrition` — one of the three nutrients used to define a healthy recipe. |
 | `carbohydrates` | Extracted from `nutrition` — one of the three nutrients used to define a healthy recipe. |
 | `is_healthy` | *Added later to express based off protein, sugar, and carbohydrates if recipe is healthy or not.* |
+
 Here is the head of **Recipes**
 <table>
   <thead>
