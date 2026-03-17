@@ -218,7 +218,7 @@ The features used in this model are known at the time of prediciton - `n_ingredi
 ## Baeline Model
 
 ### Performance
-| | RMSE |
+| --- | RMSE |
 | --- | --- |
 | Training | 5.6618 |
 | Test | 5.6682 |
@@ -255,7 +255,7 @@ We used `GridSearchCV` with 5-fold cross validation to tune two hyperparameters:
 The best parameters found were `max_depth=10` and `n_estimators=200`.
 
 ### Performance
-| | RMSE |
+| --- | RMSE |
 | --- | --- |
 | Baseline Train | 5.6 |
 | Baseline Test | 5.6 |
