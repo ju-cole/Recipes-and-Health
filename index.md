@@ -415,6 +415,9 @@ The features used in this model are known at the time of prediciton - `n_ingredi
 ## Baeline Model
 
 ### Performance
+
+Our baseline model uses a Linear Regression model to predict recipe ratings. The features used are minutes (cooking time) and number of ingredients, since these are simple characteristics available before cooking a recipe. These features serve as a reasonable baseline because they capture basic recipe complexity while remaining interpretable.
+
 <table>
   <thead>
     <tr>
