@@ -9,7 +9,7 @@ The central question for this project is: ***Do healthier recipes-those with hig
 
 This an important question as it gets at a common assumption that healthy food is less satisfying or enjoyable. If the data reveals that high-protein and low-carb recipes are rated just as high, or higher than unhealthy recipes, it is encourages anyone to eat better without having to sacrifice the taste.
 
-### The Datasets
+## The Datasets
 **Recipes** — this dataset contains 1,005,384 rows, where each row represents a unique recipe.
 
 | Column | Description |
@@ -41,7 +41,7 @@ Now we are going to have to clean these two datasets into one concise dataframe 
 
 
 
-### Merging the Datasets
+## Merging the Datasets
 
 To create a single working dataset, a **left merge** was performed of the recipes 
 dataset with the interactions dataset on `id` and `recipe_id`. A left merge ensures 
@@ -158,7 +158,7 @@ Here is the head of **Recipes**
   </tbody>
 </table>
 
-### Univariate Analysis
+## Univariate Analysis
 In this section, We look at the distribution of protein, carbohydrates, and sugar among all the recipes to see how relevant they are in the dataframe and can figure out where the cutoff should be when taking to account outliers.
 
 <iframe
@@ -193,7 +193,7 @@ carbohydrate levels.
 is right-skewed. Most recipes contain low amounts of sugar, while a smaller number 
 of recipes — likely desserts and sweet dishes — have very high sugar content.
 
-### Bivariate Analysis
+## Bivariate Analysis
 
 For this analysis, I examined the distribution of the rating of the recipe conditioned between the healthy and non-healthy recipes (based on sugar, carbohydrate, and protein levels). The graph below shows that recipes rated as 5/5 and 3/5 were more unhealthy than healthy ones, but 4/5 were actually primarily healthy recipes. We are going to dive into the deeper relationship between the proportions later on.
 
@@ -204,9 +204,9 @@ height="600"
 frameborder="0"
 ></iframe>
 
-### Interesting Aggregates
+## Interesting Aggregates
 
-For this section, we investigated the relationship between the average protein, carbohydrates, sugar, and calories over the distribution of the ratings. To do this, we created a smaller dataframe 'nutrition_by_rating', which gave the each rating 1-5 as well as the mean and median of each nutrition detail. We identified the outliers using the IQR method and after grouping the rating and means and medians of the nutritonal details, we created a data visualization to understand it better.
+For this section, we investigated the relationship between the average protein, carbohydrates, sugar, and calories over the distribution of the ratings. To do this, we created a smaller dataframe 'nutrition_by_rating', representing rating as well as the mean and median of each nutrition detail. We identified the outliers using the IQR method and after grouping the rating and means and medians of the nutritonal details, we created a data visualization to understand it better.
 
 <table>
   <thead>
