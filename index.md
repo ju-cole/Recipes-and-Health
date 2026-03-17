@@ -218,10 +218,24 @@ The features used in this model are known at the time of prediciton - `n_ingredi
 ## Baeline Model
 
 ### Performance
-| --- | RMSE |
-| --- | --- |
-| Training | 5.6618 |
-| Test | 5.6682 |
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>RMSE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Train</td>
+      <td>5.6618</td>
+    </tr>
+    <tr>
+      <td>Test</td>
+      <td>5.6682</td>
+    </tr>
+  </tbody>
+</table>
 
 Our baseline model achieves a Train and Test RMSE of approximately 5.6, meaning 
 our predictions are off by about 5.7 steps on average. Given that the average 
@@ -255,12 +269,32 @@ We used `GridSearchCV` with 5-fold cross validation to tune two hyperparameters:
 The best parameters found were `max_depth=10` and `n_estimators=200`.
 
 ### Performance
-| --- | RMSE |
-| --- | --- |
-| Baseline Train | 5.6 |
-| Baseline Test | 5.6 |
-| Final Train | 4.97 |
-| Final Test | 5.31 |
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>RMSE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Baseline Train</td>
+      <td>5.6618</td>
+    </tr>
+    <tr>
+      <td>Baseline Test</td>
+      <td>5.6682</td>
+    </tr>
+    <tr>
+      <td>Final Train</td>
+      <td>4.91</td>
+    </tr>
+    <tr>
+      <td>Final Test</td>
+      <td>5.31</td>
+    </tr>
+  </tbody>
+</table>
 
 Our final model improved on the baseline by reducing Test RMSE from 5.6 to 5.31, 
 a reduction of about 0.3 steps. While the improvement is modest, it shows that 
